@@ -20,11 +20,12 @@ loopView.reloadViews(loopView.getImageViews(imgArr, bounds: loopView.bounds))
 
 支持多种pageControl样式
 
-![IMG_0046.PNG](https://upload-images.jianshu.io/upload_images/12555132-f0aa61cc33b4c541.PNG?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![IMG_0046.jpg](https://upload-images.jianshu.io/upload_images/12555132-b97f81c4433a9f44.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
-![IMG_0045.PNG](https://upload-images.jianshu.io/upload_images/12555132-509892f00b409d7b.PNG?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![IMG_0045.jpg](https://upload-images.jianshu.io/upload_images/12555132-b25fdeddae165906.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
-![IMG_0044.PNG](https://upload-images.jianshu.io/upload_images/12555132-46f6ccd6376a9f78.PNG?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![IMG_0044.jpg](https://upload-images.jianshu.io/upload_images/12555132-9c6e2d8b86b52377.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
 
 
 还可支持图片样式
@@ -33,6 +34,6 @@ loopView.pageControlStyle = .animated
 loopView.currentPageDotImage = UIImage.init(named: "pageControlCurrentDot")
 loopView.pageDotImage = UIImage.init(named: "pageControlDot")
 ```
-![IMG_0043.PNG](https://upload-images.jianshu.io/upload_images/12555132-2e48a0eb372a3747.PNG?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![IMG_0043.jpg](https://upload-images.jianshu.io/upload_images/12555132-1e3efb49d54dfcbc.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
 
