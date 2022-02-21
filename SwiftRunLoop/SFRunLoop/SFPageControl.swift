@@ -9,14 +9,13 @@ import Foundation
 import UIKit
 
 class SFAnimatedDotView: UIView {
-    var dotColor: UIColor {
+    var dotColor: UIColor = UIColor.white {
         didSet {
             layer.borderColor = dotColor.cgColor
         }
     }
     
     override init(frame: CGRect) {
-        dotColor = UIColor.white
         super.init(frame: frame)
         backgroundColor = UIColor.clear
         layer.masksToBounds = true

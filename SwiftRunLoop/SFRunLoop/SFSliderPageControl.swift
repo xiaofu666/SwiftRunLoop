@@ -10,15 +10,15 @@ import UIKit
 
 class SFSliderPageControl: UIView {
     var pageDots = [UIView]()
-    var pages: Int
-    var startPage: Int
-    var dotAlpha: CGFloat
-    var dotMargin: CGFloat
-    var dotNomalSize: CGSize
-    var dotBigSize: CGSize
-    var currentPageColor: UIColor
-    var normalPageColor: UIColor 
-    var currentPage: Int {
+    var pages: Int = 0
+    var startPage: Int = 0
+    var dotAlpha: CGFloat = 0.5
+    var dotMargin: CGFloat = 6.0
+    var dotNomalSize: CGSize = CGSize(width: 8, height: 8)
+    var dotBigSize: CGSize = CGSize(width: 16, height: 8)
+    var currentPageColor: UIColor = UIColor.white
+    var normalPageColor: UIColor = UIColor.gray
+    var currentPage: Int = 0 {
         didSet {
             let dotNomalWidth = self.dotNomalSize.width, dotNomalHeight = self.dotNomalSize.height, dotBigWidth    = self.dotBigSize.width, dotBigHeight   = self.dotBigSize.height
             UIView.animate(withDuration: 1.0) {
@@ -37,22 +37,6 @@ class SFSliderPageControl: UIView {
                 }
             }
         }
-    }
-    override init(frame: CGRect) {
-        dotNomalSize = CGSize(width: 8, height: 8)
-        dotBigSize = CGSize(width: 16, height: 8)
-        dotMargin = 6
-        startPage = 0
-        dotAlpha = 0.5
-        currentPageColor = UIColor.white
-        normalPageColor = UIColor.gray
-        currentPage = 0
-        pages = 0
-        super.init(frame: frame)
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
     }
     
     func sliderPageSize() -> CGSize {

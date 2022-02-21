@@ -34,64 +34,56 @@ class SFRunLoopView: UIView, UIScrollViewDelegate {
     }
     
     // MARK: - 公开属性
-    public var changeMode: SFChangeMode
-    public var pageControlStyle: SFPageStyle
-    public var pageControlAliment: SFPageContolAliment
+    public var changeMode: SFChangeMode = .loop
+    public var pageControlStyle: SFPageStyle = .classic
+    public var pageControlAliment: SFPageContolAliment = .center
     /// 仅在animated模式下支持图片
     public var currentPageDotImage: UIImage?
     public var pageDotImage: UIImage?
-    public var currentPageDotColor: UIColor
-    public var pageDotColor: UIColor
-    public var pageControlDotSize: CGSize
-    public var pageOffset: CGPoint
+    public var currentPageDotColor: UIColor = .white
+    public var pageDotColor: UIColor = .lightGray
+    public var pageControlDotSize: CGSize = CGSize(width: 8, height: 8)
+    public var pageOffset: CGPoint = CGPoint(x: 0, y: 5)
     /// 时间必须大于1秒
-    public var time: Double
-    public var showPageControl: Bool
-    public var hidesForSinglePage: Bool
+    public var time: Double = 3.0
+    public var showPageControl: Bool = true
+    public var hidesForSinglePage: Bool = true
     public weak var delegate: SFFocusImageDelegate?
     
     
     // MARK: - 私有属性
     private var viewArray: Array = [UIView]()
-    private var scrollView: UIScrollView
-    private var currView: UIView
-    private var otherView: UIView
-    private var currIndex: Int
-    private var nextIndex: Int
+    private lazy var scrollView: UIScrollView = {
+        let scrollView = UIScrollView(frame: CGRect(origin: CGPoint(x: 0, y: 0), size: frame.size))
+        scrollView.scrollsToTop = false
+        scrollView.isPagingEnabled = true
+        scrollView.bounces = false
+        scrollView.showsHorizontalScrollIndicator = false
+        scrollView.showsVerticalScrollIndicator = false
+        scrollView.addSubview(self.currView)
+        scrollView.addSubview(self.otherView)
+        scrollView.delegate = self
+        scrollView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(imageClick)))
+        return scrollView
+    }()
+    private lazy var currView: UIView = {
+        let currView = UIView(frame: CGRect(origin: CGPoint(x: 0, y: 0), size: frame.size))
+        currView.clipsToBounds = true
+        return currView
+    }()
+    private lazy var otherView: UIView = {
+        let currView = UIView(frame: CGRect(origin: CGPoint(x: 0, y: 0), size: frame.size))
+        currView.clipsToBounds = true
+        return currView
+    }()
+    private var currIndex: Int = 0
+    private var nextIndex: Int = 0
     private var timer: Timer?
     private var pageControl: UIView?
     
     override init(frame: CGRect) {
-        changeMode = .loop
-        pageControlStyle = .classic
-        pageControlAliment = .center
-        currentPageDotColor = .white
-        pageDotColor = .lightGray
-        pageControlDotSize = CGSize(width: 8, height: 8)
-        pageOffset = CGPoint(x: 0, y: 5)
-        time = 5.0
-        showPageControl = true
-        hidesForSinglePage = true
-        
-        currIndex = 0
-        nextIndex = 0
-        
-        self.currView = UIView(frame: CGRect(origin: CGPoint(x: 0, y: 0), size: frame.size))
-        self.currView.clipsToBounds = true
-        self.otherView = UIView(frame: CGRect(origin: CGPoint(x: 0, y: 0), size: frame.size))
-        self.otherView.clipsToBounds = true
-        self.scrollView = UIScrollView(frame: CGRect(origin: CGPoint(x: 0, y: 0), size: frame.size))
-        self.scrollView.scrollsToTop = false
-        self.scrollView.isPagingEnabled = true
-        self.scrollView.bounces = false
-        self.scrollView.showsHorizontalScrollIndicator = false
-        self.scrollView.showsVerticalScrollIndicator = false
         super.init(frame: frame)
         self.addSubview(self.scrollView)
-        self.scrollView.addSubview(self.currView)
-        self.scrollView.addSubview(self.otherView)
-        self.scrollView.delegate = self
-        self.scrollView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(imageClick)))
     }
     
     convenience init(frame: CGRect, del: SFFocusImageDelegate) {
@@ -111,7 +103,7 @@ class SFRunLoopView: UIView, UIScrollViewDelegate {
         setViewForArray()
     }
     
-    public func getImageViews(_ urls: Array<String>, bounds: CGRect) -> Array<UIView> {
+    public func getImageViews(with urls: Array<String>, bounds: CGRect) -> Array<UIView> {
         var views = [UIView]()
         for url in urls {
             let imgView = UIImageView(frame: bounds)
